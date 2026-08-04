@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+
+:root {
+  --pink-page: #ffe1ec;
+  --pink-panel: #ffd6e8;
+  --pink-strong: #ff5d94;
+  --pink-mid: #ff8fb8;
+  --pink-soft: #ffc2d9;
+  --pink-text: #ff6fa3;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  background: var(--pink-page);
+  color: #7a4a5c;
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--pink-strong);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.kawaii {
+  font-family: 'Mochiy Pop One', sans-serif;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  border-bottom: 3px solid var(--pink-soft);
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 2rem;
+  color: var(--pink-strong);
+  letter-spacing: 1px;
+}
+
+.logo a {
+  color: inherit;
+}
+
+.menu-dots {
+  font-size: 1.6rem;
+  color: var(--pink-text);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* ---------- Lace border ---------- */
+
+.lace {
+  height: 34px;
+  background-color: var(--pink-page);
+  background-image:
+    radial-gradient(circle at 12px 0px, transparent 13px, var(--white) 14px),
+    radial-gradient(circle at 12px 0px, transparent 10px, transparent 10px);
+  background-size: 24px 24px;
+  background-repeat: repeat-x;
+  filter: drop-shadow(0 2px 1px rgba(255, 143, 184, 0.35));
+}
+
+.lace.flip {
+  transform: rotate(180deg);
+}
+
+/* ---------- Ribbon icon (inline svg) ---------- */
+
+.ribbon-icon {
+  display: inline-block;
+}
+
+.ribbon-icon svg {
+  display: block;
+}
+
+.corner-ribbon {
+  position: absolute;
+  width: 70px;
+  opacity: 0.9;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  min-height: 340px;
+  position: relative;
+}
+
+/* ---------- Gallery row ---------- */
+
+.gallery-row {
+  display: flex;
+  gap: 14px;
+  padding: 30px 24px 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gallery-row .photo {
+  flex: 1 1 260px;
+  max-width: 340px;
+}
+
+.photo-placeholder {
+  border-radius: 10px;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.95);
+  background: linear-gradient(135deg, var(--pink-mid), var(--pink-soft));
+  box-shadow: 0 4px 10px rgba(255, 93, 148, 0.25);
+}
+
+.photo-placeholder.circle {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+}
+
+.photo-placeholder span {
+  font-style: italic;
+}
+
+/* ---------- Section icon heading ---------- */
+
+.section-lead {
+  padding: 0 32px;
+  margin-bottom: 6px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  color: var(--pink-strong);
+  margin: 0 0 18px;
+}
+
+/* ---------- Instagram search ---------- */
+
+.insta-search {
+  display: flex;
+  max-width: 460px;
+  margin: 26px auto;
+  padding: 0 24px;
+}
+
+.insta-search form {
+  display: flex;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(255, 93, 148, 0.25);
+}
+
+.insta-search input {
+  flex: 1;
+  border: none;
+  padding: 12px 18px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.insta-search button {
+  border: none;
+  background: var(--pink-strong);
+  color: white;
+  width: 52px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* ---------- Content sections ---------- */
+
+.section {
+  padding: 50px 32px;
+  position: relative;
+}
+
+.section.tinted {
+  background: var(--pink-panel);
+}
+
+.section-flex {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.section-flex .text {
+  flex: 1 1 380px;
+}
+
+.section-flex .media {
+  flex: 1 1 300px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.section-flex .media .photo-placeholder.circle {
+  width: min(360px, 90%);
+}
+
+.more-link {
+  display: block;
+  text-align: right;
+  margin-top: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--pink-strong);
+  display: inline-block;
+}
+
+.triple-photo {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.triple-photo figure {
+  flex: 1 1 220px;
+  max-width: 260px;
+  margin: 0;
+  text-align: center;
+}
+
+.triple-photo figcaption {
+  margin-top: 12px;
+  font-weight: 700;
+  color: var(--pink-strong);
+  font-size: 0.95rem;
+}
+
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0;
+}
+
+.bullet-list li {
+  margin-bottom: 6px;
+}
+
+.bullet-list li::before {
+  content: "＊ ";
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--white);
+  padding: 22px 32px 60px;
+  position: relative;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-weight: 700;
+}
+
+.footer-nav a {
+  color: var(--pink-mid);
+  border-bottom: 2px solid transparent;
+}
+
+.footer-nav a:hover,
+.footer-nav a.active {
+  border-bottom-color: var(--pink-mid);
+}
+
+.contact-banner {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  background: var(--pink-mid);
+  color: white;
+  padding: 10px 26px 10px 20px;
+  font-weight: 700;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 12px 50%);
+  box-shadow: 0 3px 6px rgba(255, 93, 148, 0.4);
+}
+
+/* ---------- Logo landing (front page big title) ---------- */
+
+.brand-mark {
+  text-align: center;
+  padding: 60px 20px 10px;
+}
+
+.brand-mark .kawaii {
+  font-size: 2.4rem;
+  color: var(--pink-strong);
+}
+
+/* ---------- Order steps / pricing blocks ---------- */
+
+.info-block {
+  margin: 26px 0;
+}
+
+.info-block h3 {
+  color: var(--pink-strong);
+  font-size: 1.2rem;
+  border-left: 6px solid var(--pink-mid);
+  padding-left: 10px;
+}
+
+.info-block .placeholder-note {
+  color: #b98a9c;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ---------- Contact form ---------- */
+
+.contact-form {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form label {
+  font-weight: 700;
+  color: var(--pink-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-family: inherit;
+  padding: 10px 14px;
+  border: 2px solid var(--pink-soft);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  align-self: flex-start;
+  background: var(--pink-strong);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 24px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(255, 93, 148, 0.35);
+}
+
+@media (max-width: 640px) {
+  .contact-banner {
+    position: static;
+    display: inline-block;
+    margin-top: 20px;
+    clip-path: none;
+    border-radius: 20px;
+  }
+}
