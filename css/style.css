@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+/* Fonts are loaded from <link> tags in each page's head:
+   Cherry Bomb One (logo) and Hachi Maru Pop (headings) are the Google Fonts
+   names for the typefaces in the reference design. */
 
 :root {
   --pink-page: #fce0ee;
@@ -25,7 +27,7 @@ a { color: var(--text); text-decoration: none; }
 
 img { max-width: 100%; display: block; }
 
-.kawaii { font-family: 'Mochiy Pop One', sans-serif; }
+.kawaii { font-family: 'Cherry Bomb One', sans-serif; }
 
 /* ---------- Header ---------- */
 
@@ -51,7 +53,7 @@ img { max-width: 100%; display: block; }
 }
 
 .logo {
-  font-family: 'Mochiy Pop One', sans-serif;
+  font-family: 'Cherry Bomb One', sans-serif;
   font-size: 2.1rem;
   letter-spacing: 1px;
   line-height: 1;
@@ -170,7 +172,7 @@ img { max-width: 100%; display: block; }
   transform: translateY(-40%);
   z-index: 5;
   text-align: right;
-  font-family: 'Mochiy Pop One', sans-serif;
+  font-family: 'Hachi Maru Pop', sans-serif;
   font-size: clamp(1.1rem, 3vw, 2.6rem);
   line-height: 1.6;
   color: var(--white);
@@ -212,7 +214,7 @@ img { max-width: 100%; display: block; }
   font-size: 1.7rem;
   color: var(--pink-strong);
   margin: 0 0 26px;
-  font-family: 'Mochiy Pop One', sans-serif;
+  font-family: 'Hachi Maru Pop', sans-serif;
   font-weight: normal;
 }
 
@@ -364,7 +366,7 @@ img { max-width: 100%; display: block; }
   border-left: 6px solid var(--pink-mid);
   padding-left: 12px;
   margin-bottom: 8px;
-  font-family: 'Mochiy Pop One', sans-serif;
+  font-family: 'Hachi Maru Pop', sans-serif;
   font-weight: normal;
 }
 
