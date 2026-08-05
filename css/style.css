@@ -215,7 +215,10 @@ img { max-width: 100%; display: block; }
   color: var(--pink-strong);
   margin: 0 0 26px;
   font-family: 'Hachi Maru Pop', sans-serif;
-  font-weight: normal;
+  /* Hachi Maru Pop ships weight 400 only, so this is a synthesised bold.
+     It thickens the strokes cleanly at this size without filling the
+     counters, which a heavier stroke would. */
+  font-weight: 700;
 }
 
 .section-heading .bow { width: 42px; flex: none; }
