@@ -35,17 +35,29 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: space-between;
   padding: 18px 28px;
-  border-bottom: 2px solid var(--pink-soft);
   position: relative;
   z-index: 20;
+}
+
+/* The hairline starts clear of the logo rather than spanning the full width. */
+.site-header::after {
+  content: "";
+  position: absolute;
+  left: min(24%, 340px);
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--pink-mid);
 }
 
 .logo {
   font-family: 'Mochiy Pop One', sans-serif;
   font-size: 2.1rem;
-  color: var(--pink-strong);
   letter-spacing: 1px;
   line-height: 1;
+  color: var(--white);
+  -webkit-text-stroke: 3px var(--pink-strong);
+  paint-order: stroke fill;
 }
 
 .logo a { color: inherit; }
@@ -109,17 +121,85 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Hero ---------- */
 
+/* The hero sits on white, with a lace strip lapping over the top and bottom
+   edges of the photo rather than sitting above and below it. */
 .hero {
+  background: var(--white);
+  padding: clamp(30px, 6vw, 78px) 0 clamp(24px, 3vw, 40px);
+}
+
+.hero-media {
   position: relative;
   overflow: hidden;
 }
 
-.hero img {
+.hero-media > img {
   width: 100%;
-  height: clamp(260px, 42vw, 520px);
+  aspect-ratio: 21 / 10;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center 38%;
 }
+
+/* Lightens the right of the photo just enough to carry the catch copy. */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0.52) 52%,
+    rgba(255,255,255,0.52) 100%);
+  pointer-events: none;
+}
+
+.hero-lace {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  height: 46px;
+}
+
+.hero-lace.top    { top: 0; }
+.hero-lace.bottom { bottom: 0; }
+
+.hero-copy {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-40%);
+  z-index: 5;
+  text-align: right;
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: clamp(1.1rem, 3vw, 2.6rem);
+  line-height: 1.6;
+  color: var(--white);
+  -webkit-text-stroke: 2px var(--pink-strong);
+  paint-order: stroke fill;
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- Lead copy under the hero ---------- */
+
+.tagline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 5vw, 70px);
+  padding: 34px 6% 10px;
+}
+
+.tagline p {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  line-height: 2.1;
+}
+
+.tagline img { width: clamp(64px, 7vw, 104px); flex: none; align-self: flex-start; }
+
+.tagline img.right { align-self: flex-end; }
 
 /* ---------- Section basics ---------- */
 
@@ -147,7 +227,7 @@ img { max-width: 100%; display: block; }
   gap: 18px;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 120px 5% 10px;
+  padding: 40px 5% 10px;
 }
 
 .gallery-row figure {
@@ -385,7 +465,31 @@ img { max-width: 100%; display: block; }
 /* ---------- Responsive ---------- */
 
 @media (max-width: 700px) {
-  .logo { font-size: 1.6rem; }
+  .logo { font-size: 1.6rem; -webkit-text-stroke-width: 2px; }
+
+  /* A 21:10 crop leaves almost no photo on a phone, so the hero goes taller
+     and the catch copy drops below the subject instead of across her face. */
+  .hero { padding: 20px 0 18px; }
+  .hero-media > img { aspect-ratio: 4 / 3; object-position: center 28%; }
+  .hero-lace { height: 26px; }
+
+  .hero-media::after {
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0) 46%,
+      rgba(255,255,255,0.55) 74%);
+  }
+
+  .hero-copy {
+    left: 5%;
+    right: 5%;
+    top: auto;
+    bottom: 30px;
+    transform: none;
+    font-size: clamp(1rem, 5.4vw, 1.6rem);
+    -webkit-text-stroke-width: 1.4px;
+  }
+
+  .tagline { padding-top: 26px; }
   .section { padding: 40px 7%; }
   .doily { display: none; }
   .deco-ribbon { display: none; }
