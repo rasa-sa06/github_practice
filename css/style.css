@@ -67,7 +67,7 @@ img { max-width: 100%; display: block; }
    so the strip under the header is rotated to hang the scallops downward. */
 .lace {
   height: 56px;
-  background-image: url('../images/lace-line.png');
+  background-image: url('../images/lace-line.webp');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: relative;
