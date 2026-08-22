@@ -64,6 +64,7 @@ img { max-width: 100%; display: block; }
 
 .logo a { color: inherit; }
 
+/* The hamburger is a <summary>, so the panel opens without script. */
 .menu-btn {
   width: 32px;
   height: 32px;
@@ -71,9 +72,42 @@ img { max-width: 100%; display: block; }
   border: none;
   padding: 0;
   cursor: pointer;
+  list-style: none;
+  display: block;
 }
 
+.menu-btn::-webkit-details-marker { display: none; }
+
 .menu-btn img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Positioned against .site-header, so the panel hangs from the header's
+   bottom edge rather than from the button. */
+.menu-panel {
+  position: absolute;
+  top: 100%;
+  right: 28px;
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 26px 18px;
+  background: var(--white);
+  border: 2px solid var(--pink-soft);
+  border-radius: 0 0 18px 18px;
+  border-top: none;
+  box-shadow: 0 8px 20px rgba(242, 61, 143, 0.18);
+}
+
+.menu-panel a {
+  color: var(--pink-mid);
+  font-weight: 700;
+  line-height: 2.2;
+  border-bottom: 2px solid transparent;
+  align-self: flex-start;
+}
+
+.menu-panel a:hover,
+.menu-panel a.active { border-bottom-color: var(--pink-mid); }
 
 /* ---------- Lace strip ---------- */
 

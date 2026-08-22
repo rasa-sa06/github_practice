@@ -14,7 +14,19 @@
 
 <header class="site-header">
   <div class="logo kawaii"><a href="index.html">ぷてぃえーる</a></div>
-  <button class="menu-btn" aria-label="メニュー"><img src="images/menu.webp" alt="" loading="lazy" decoding="async"></button>
+  <!-- <details> carries the open/close behaviour natively, so the header stays
+       script-free like the FAQ accordion. -->
+  <details class="menu">
+    <summary class="menu-btn" aria-label="メニュー"><img src="images/menu.webp" alt="" decoding="async"></summary>
+    <nav class="menu-panel">
+      <a href="index.html" class="active" aria-current="page">TOP</a>
+      <a href="about.html">ABOUT</a>
+      <a href="custom.html">Custom Made</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">CONTACT</a>
+    </nav>
+  </details>
 </header>
 
 <section class="hero">
