@@ -1,0 +1,72 @@
+name: Sync gallery from Instagram
+
+on:
+  schedule:
+    # 06:00 JST daily
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: instagram-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install --quiet Pillow
+
+      # Long-lived tokens last 60 days. Refreshing on every run keeps the
+      # token alive indefinitely, but the new value is only persisted when a
+      # PAT with secrets write access is available; without one the run still
+      # succeeds and the token simply ages.
+      - name: Refresh the access token
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: |
+          # The secrets context is not available to a step's `if`, so the
+          # not-yet-configured case is handled here instead.
+          if [ -z "$INSTAGRAM_TOKEN" ]; then
+            echo "INSTAGRAM_TOKEN is not set yet — skipping refresh."
+            exit 0
+          fi
+          refreshed=$(curl -sS -G "https://graph.instagram.com/refresh_access_token" \
+            --data-urlencode "grant_type=ig_refresh_token" \
+            --data-urlencode "access_token=$INSTAGRAM_TOKEN" || true)
+          new=$(printf '%s' "$refreshed" | python3 -c "import json,sys;print(json.load(sys.stdin).get('access_token',''))" 2>/dev/null || true)
+          expires=$(printf '%s' "$refreshed" | python3 -c "import json,sys;print(json.load(sys.stdin).get('expires_in',0))" 2>/dev/null || echo 0)
+          if [ -z "$new" ]; then
+            echo "::warning::Token refresh did not return a new token; continuing with the existing one."
+          elif [ -z "$GH_TOKEN" ]; then
+            echo "::warning::Token refreshed but SECRETS_PAT is not set, so it cannot be stored. Expires in $((expires/86400)) days."
+          else
+            gh secret set INSTAGRAM_TOKEN --body "$new" --repo "$GITHUB_REPOSITORY"
+            echo "Token refreshed; valid for another $((expires/86400)) days."
+          fi
+
+      - name: Pull the latest posts
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+        run: python3 scripts/sync_instagram.py
+
+      - name: Commit any change
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Gallery already matches the latest posts."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/ig-image*.webp index.html gallery.html
+          git commit -m "Refresh the gallery from the latest Instagram posts"
+          git push
