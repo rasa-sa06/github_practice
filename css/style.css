@@ -75,6 +75,36 @@ img { max-width: 100%; display: block; }
 
 .menu-btn img { width: 100%; height: 100%; object-fit: contain; }
 
+/* The panel hangs off the header rather than pushing the page down, so the
+   lace strip and hero underneath stay where they are while it is open. */
+.site-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 20px;
+  min-width: 210px;
+  flex-direction: column;
+  background: var(--white);
+  border: 2px solid var(--pink-soft);
+  border-radius: 20px;
+  padding: 14px 28px;
+  box-shadow: 0 8px 22px rgba(242, 61, 143, 0.18);
+  font-weight: 700;
+  z-index: 30;
+}
+
+.site-header.is-open .site-menu { display: flex; }
+
+.site-menu a {
+  width: fit-content;
+  color: var(--pink-mid);
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-menu a:hover,
+.site-menu a[aria-current="page"] { border-bottom-color: var(--pink-mid); }
+
 /* ---------- Lace strip ---------- */
 
 /* The source strip has its scalloped edge at the top and solid white below,
@@ -401,7 +431,7 @@ img { max-width: 100%; display: block; }
 }
 
 .footer-nav a:hover,
-.footer-nav a.active { border-bottom-color: var(--pink-mid); }
+.footer-nav a[aria-current="page"] { border-bottom-color: var(--pink-mid); }
 
 .contact-banner {
   position: absolute;

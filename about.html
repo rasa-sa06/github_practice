@@ -9,12 +9,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Hachi+Maru+Pop&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/menu.js" defer></script>
 </head>
 <body>
 
 <header class="site-header">
   <div class="logo kawaii"><a href="index.html">ぷてぃえーる</a></div>
-  <button class="menu-btn" aria-label="メニュー"><img src="images/menu.webp" alt="" loading="lazy" decoding="async"></button>
+  <button class="menu-btn" type="button" hidden aria-label="メニューを開く" aria-expanded="false" aria-controls="site-menu"><img src="images/menu.webp" alt="" loading="lazy" decoding="async"></button>
+  <nav class="site-menu" id="site-menu" aria-label="サイト内メニュー">
+    <a href="index.html">TOP</a>
+    <a href="about.html" aria-current="page">ABOUT</a>
+    <a href="custom.html">Custom Made</a>
+    <a href="gallery.html">GALLERY</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">CONTACT</a>
+  </nav>
 </header>
 
 <div class="lace"></div>
@@ -76,7 +85,7 @@
 <footer class="site-footer">
   <nav class="footer-nav">
     <a href="index.html">TOP</a>
-    <a href="about.html" class="active">ABOUT</a>
+    <a href="about.html" aria-current="page">ABOUT</a>
     <a href="custom.html">Custom Made</a>
     <a href="gallery.html">GALLERY</a>
     <a href="faq.html">FAQ</a>
