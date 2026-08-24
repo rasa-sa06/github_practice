@@ -32,15 +32,18 @@ JavaScript を使っていません。
 LINE や Instagram に URL を貼ったときに出る画像・タイトルの設定です。
 各ページの `<head>` にタグが入っています。
 
-**公開ドメインが決まったら、一度だけ次を実行してください。**
-画像とページのURLが相対パスのままだと、SNS によってはサムネイルが出ません。
+公開先は <https://github-practice-rouge-nine.vercel.app/> で、
+`og:image` と `og:url` はこのドメインの絶対URLになっています。
+
+`<title>` や `description` を書き換えたあと、あるいは独自ドメインに
+移したあとは、次を実行するとタグがそれに追従します。
 
 ```
-ORIGIN=https://example.com python3 scripts/build_meta.py
+ORIGIN=https://github-practice-rouge-nine.vercel.app python3 scripts/build_meta.py
 ```
 
-全ページのタグが絶対URLに書き換わります。`<title>` や `description` を
-書き換えたあとに実行すると、OGP のタイトル・説明文もそれに追従します。
+`ORIGIN` を省くと画像とページのURLが相対パスに戻ります。SNS によっては
+相対パスだとサムネイルを読めないので、公開先が分かっているうちは必ず付けてください。
 
 ## 動作確認
 
