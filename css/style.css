@@ -460,47 +460,6 @@ img { max-width: 100%; display: block; }
   text-shadow: 0 1px 2px rgba(216, 74, 140, 0.5);
 }
 
-/* ---------- Contact form ---------- */
-
-.contact-form {
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.contact-form label {
-  font-weight: 700;
-  color: var(--pink-strong);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  font-family: inherit;
-  padding: 10px 14px;
-  border: 2px solid var(--pink-soft);
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #6b4456;
-}
-
-.contact-form button {
-  align-self: flex-start;
-  background: var(--pink-strong);
-  color: var(--white);
-  border: none;
-  padding: 12px 36px;
-  border-radius: 24px;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(242, 61, 143, 0.3);
-}
-
 /* ---------- Responsive ---------- */
 
 @media (max-width: 700px) {
@@ -683,8 +642,7 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 4px 14px rgba(242, 61, 143, 0.35);
 }
 
-/* Swap in once the LINE official account exists: add class="line" to the
-   anchor and point href at the account's URL. */
+/* LINE green, for the buttons that open the shop's official account. */
 .cta a.line {
   background: #06c755;
   box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);
