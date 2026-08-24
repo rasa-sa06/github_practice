@@ -64,6 +64,7 @@ img { max-width: 100%; display: block; }
 
 .logo a { color: inherit; }
 
+/* The hamburger is a <summary>, so the panel opens without script. */
 .menu-btn {
   width: 32px;
   height: 32px;
@@ -71,9 +72,42 @@ img { max-width: 100%; display: block; }
   border: none;
   padding: 0;
   cursor: pointer;
+  list-style: none;
+  display: block;
 }
 
+.menu-btn::-webkit-details-marker { display: none; }
+
 .menu-btn img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Positioned against .site-header, so the panel hangs from the header's
+   bottom edge rather than from the button. */
+.menu-panel {
+  position: absolute;
+  top: 100%;
+  right: 28px;
+  min-width: 210px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 26px 18px;
+  background: var(--white);
+  border: 2px solid var(--pink-soft);
+  border-radius: 0 0 18px 18px;
+  border-top: none;
+  box-shadow: 0 8px 20px rgba(242, 61, 143, 0.18);
+}
+
+.menu-panel a {
+  color: var(--pink-mid);
+  font-weight: 700;
+  line-height: 2.2;
+  border-bottom: 2px solid transparent;
+  align-self: flex-start;
+}
+
+.menu-panel a:hover,
+.menu-panel a.active { border-bottom-color: var(--pink-mid); }
 
 /* ---------- Lace strip ---------- */
 
@@ -426,47 +460,6 @@ img { max-width: 100%; display: block; }
   text-shadow: 0 1px 2px rgba(216, 74, 140, 0.5);
 }
 
-/* ---------- Contact form ---------- */
-
-.contact-form {
-  max-width: 560px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.contact-form label {
-  font-weight: 700;
-  color: var(--pink-strong);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  font-family: inherit;
-  padding: 10px 14px;
-  border: 2px solid var(--pink-soft);
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #6b4456;
-}
-
-.contact-form button {
-  align-self: flex-start;
-  background: var(--pink-strong);
-  color: var(--white);
-  border: none;
-  padding: 12px 36px;
-  border-radius: 24px;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(242, 61, 143, 0.3);
-}
-
 /* ---------- Responsive ---------- */
 
 @media (max-width: 700px) {
@@ -649,8 +642,7 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 4px 14px rgba(242, 61, 143, 0.35);
 }
 
-/* Swap in once the LINE official account exists: add class="line" to the
-   anchor and point href at the account's URL. */
+/* LINE green, for the buttons that open the shop's official account. */
 .cta a.line {
   background: #06c755;
   box-shadow: 0 4px 14px rgba(6, 199, 85, 0.35);

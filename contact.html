@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CONTACT | ぷてぃえーる</title>
 <meta name="description" content="オーダーメイドのご相談、マルシェ出店に関するお問い合わせはこちらから。ご相談・お見積もりの段階では費用はかかりません。">
+<!-- OGP: shared-link preview. Regenerate with scripts/build_meta.py -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ぷてぃえーる">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="CONTACT | ぷてぃえーる">
+<meta property="og:description" content="オーダーメイドのご相談、マルシェ出店に関するお問い合わせはこちらから。ご相談・お見積もりの段階では費用はかかりません。">
+<meta property="og:image" content="images/ogp.jpg">
+<meta property="og:url" content="contact.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Hachi+Maru+Pop&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap">
@@ -14,7 +25,19 @@
 
 <header class="site-header">
   <div class="logo kawaii"><a href="index.html">ぷてぃえーる</a></div>
-  <button class="menu-btn" aria-label="メニュー"><img src="images/menu.webp" alt="" loading="lazy" decoding="async"></button>
+  <!-- <details> carries the open/close behaviour natively, so the header stays
+       script-free like the FAQ accordion. -->
+  <details class="menu">
+    <summary class="menu-btn" aria-label="メニュー"><img src="images/menu.webp" alt="" decoding="async"></summary>
+    <nav class="menu-panel">
+      <a href="index.html">TOP</a>
+      <a href="about.html">ABOUT</a>
+      <a href="custom.html">Custom Made</a>
+      <a href="gallery.html">GALLERY</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html" class="active" aria-current="page">CONTACT</a>
+    </nav>
+  </details>
 </header>
 
 <div class="lace"></div>
@@ -30,23 +53,22 @@
       CONTACT
     </h1>
 
-    <p>オーダーメイドのご相談・マルシェ出店に関するお問い合わせは、下記フォームよりお気軽にご連絡ください。</p>
+    <p>オーダーメイドのご相談・マルシェ出店に関するお問い合わせは、LINEからお気軽にご連絡ください。</p>
 
-    <form class="contact-form" onsubmit="alert('（デモ用フォームのため送信されません）'); return false;">
-      <label>
-        お名前
-        <input type="text" name="name" required>
-      </label>
-      <label>
-        メールアドレス
-        <input type="email" name="email" required>
-      </label>
-      <label>
-        お問い合わせ内容
-        <textarea name="message" rows="6" required></textarea>
-      </label>
-      <button type="submit">送信する</button>
-    </form>
+    <div class="cta">
+      <a class="line" href="https://lin.ee/n2cV2Gv" target="_blank" rel="noopener">LINEで相談する</a>
+      <p class="note">
+        友だち追加後、そのままトークでご相談いただけます。<br>
+        ご相談・お見積もりの段階では費用はかかりません。
+      </p>
+    </div>
+
+    <div class="insta-bar">
+      <a href="https://www.instagram.com/asm_ribbon/" target="_blank" rel="noopener">
+        <img src="images/ig.webp" alt="" loading="lazy" decoding="async">
+        <span>InstagramのDMでも承っています</span>
+      </a>
+    </div>
   </section>
 
 </main>
