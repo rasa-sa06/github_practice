@@ -609,6 +609,19 @@ img { max-width: 100%; display: block; }
    script-free. */
 .faq { max-width: 780px; }
 
+/* With thirteen questions a flat list is hard to scan, so they run in groups. */
+.faq-group {
+  font-family: 'Hachi Maru Pop', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--pink-strong);
+  margin: 36px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--pink-soft);
+}
+
+.faq-group:first-child { margin-top: 0; }
+
 .faq details {
   background: rgba(255, 255, 255, 0.55);
   border: 2px solid var(--pink-soft);
@@ -669,6 +682,20 @@ img { max-width: 100%; display: block; }
   font-weight: 700;
   margin-top: 3px;
 }
+
+/* ---------- Price guide ---------- */
+
+.price-guide {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--pink-soft);
+  border-radius: 14px;
+  padding: 14px 26px;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.price-guide strong { color: var(--pink-strong); font-size: 1.15rem; }
 
 /* ---------- Call to action ---------- */
 
