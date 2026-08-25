@@ -12,11 +12,15 @@
 | `gallery.html` | 商品写真の一覧（Instagram の最新投稿から自動更新） |
 | `faq.html` | よくあるご質問 |
 | `contact.html` | お問い合わせ窓口（LINE公式アカウントへの導線） |
+| `404.html` | 存在しないURLを開いたときのページ |
 | `css/style.css` | 全ページ共通のスタイル |
 | `docs/` | 依頼者への確認事項、Instagram 連携の設定手順 |
-| `scripts/` | Instagram 連携のスクリプト（GitHub Actions から実行） |
+| `scripts/` | Instagram 連携と、メタ情報生成のスクリプト |
 | `images/ogp.jpg` | SNSで共有されたときのサムネイル画像 |
 | `favicon.ico` | ブラウザのタブに出るアイコン |
+| `sitemap.xml` / `robots.txt` | 検索エンジン向け（`scripts/build_meta.py` が生成） |
+
+`404.html` は検索結果に出す必要がないので、sitemap に載せず `noindex` を付けています。
 
 ## デザイン
 
@@ -27,23 +31,35 @@
 ヘッダーメニューと FAQ の開閉はどちらも `<details>` の標準動作で、サイト全体で
 JavaScript を使っていません。
 
-## 共有時のサムネイル（OGP）
+## 公開URLに依存するファイル（OGP・sitemap・robots）
 
-LINE や Instagram に URL を貼ったときに出る画像・タイトルの設定です。
-各ページの `<head>` にタグが入っています。
+公開先は <https://github-practice-rouge-nine.vercel.app/> です。
+このURLを使うものが3種類あり、すべて1つのスクリプトで生成しています。
 
-公開先は <https://github-practice-rouge-nine.vercel.app/> で、
-`og:image` と `og:url` はこのドメインの絶対URLになっています。
+| 生成物 | 役割 |
+|---|---|
+| 各ページ `<head>` のOGPタグ | LINE等にURLを貼ったときの画像・タイトル・説明 |
+| `sitemap.xml` | 検索エンジンに全6ページの場所を伝える |
+| `robots.txt` | クロールの可否と、sitemap の場所を伝える |
 
-`<title>` や `description` を書き換えたあと、あるいは独自ドメインに
-移したあとは、次を実行するとタグがそれに追従します。
+次のどれかをしたら、実行してください。
+
+- ページの `<title>` や `description` を書き換えた
+- ページを追加・削除した
+- 独自ドメインに移した（`scripts/build_meta.py` の `DEFAULT_ORIGIN` を書き換えてから）
 
 ```
-ORIGIN=https://github-practice-rouge-nine.vercel.app python3 scripts/build_meta.py
+python3 scripts/build_meta.py
 ```
 
-`ORIGIN` を省くと画像とページのURLが相対パスに戻ります。SNS によっては
-相対パスだとサムネイルを読めないので、公開先が分かっているうちは必ず付けてください。
+一時的に別のドメインで試したいときは `ORIGIN=https://... python3 scripts/build_meta.py`
+のように環境変数で上書きできます。
+
+## 検索エンジンへの登録（任意）
+
+`sitemap.xml` を置いただけでも見つけてもらえますが、
+[Google Search Console](https://search.google.com/search-console) に
+サイトを登録して sitemap の URL を送信すると、より早く反映されます。
 
 ## 動作確認
 

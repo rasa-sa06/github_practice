@@ -460,6 +460,55 @@ img { max-width: 100%; display: block; }
   text-shadow: 0 1px 2px rgba(216, 74, 140, 0.5);
 }
 
+/* ---------- 404 ---------- */
+
+.notfound {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.notfound-bow { width: 116px; margin: 0 auto; }
+
+/* The same white-fill, pink-outline treatment as the logo, so the number
+   reads as part of the brand rather than as an error screen. The logo sits on
+   white; here the ground is pink, so the outline takes the stronger pink. */
+/* Scoped so it outweighs `.section p`, whose 1.4em bottom margin is a huge
+   gap at this font size. */
+.notfound .notfound-code {
+  font-family: 'Cherry Bomb One', sans-serif;
+  font-size: 4.2rem;
+  line-height: 1;
+  margin: 4px 0 14px;
+  color: var(--white);
+  -webkit-text-stroke: 5px var(--pink-strong);
+  paint-order: stroke fill;
+}
+
+/* The body's line-height of 2 leaves the heading stranded under the number. */
+.notfound .section-heading {
+  justify-content: center;
+  line-height: 1.4;
+  margin-bottom: 18px;
+}
+
+.notfound-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 30px;
+  font-weight: 700;
+  margin: 30px 0 6px;
+}
+
+.notfound-links a {
+  color: var(--pink-mid);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.notfound-links a:hover { border-bottom-color: var(--pink-mid); }
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 700px) {
@@ -659,4 +708,6 @@ img { max-width: 100%; display: block; }
   .flow li::before { width: 36px; height: 36px; font-size: 0.95rem; }
   .flow li:not(:last-child)::after { left: 17px; top: 42px; }
   .cta a { padding: 15px 30px; font-size: 1rem; }
+  .notfound-code { font-size: 3.2rem; -webkit-text-stroke-width: 4px; }
+  .notfound-bow { width: 92px; }
 }
