@@ -753,6 +753,14 @@ img { max-width: 100%; display: block; }
 
 .legal-table a { text-decoration: underline; }
 
+/* The 特商法 exemption for address and phone requires this sentence to be on
+   the page, not just the intent behind it. */
+.legal-note {
+  margin: 26px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
 /* Wide enough for two columns: the term beside its value, as these tables read. */
 @media (min-width: 720px) {
   .legal-table {
