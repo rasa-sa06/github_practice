@@ -30,9 +30,15 @@ def absolute(path):
     return ORIGIN + ("/" if path == "index.html" else "/" + path)
 
 
+# 404.html is deliberately left out: it carries its own noindex head and
+# has no business in a sitemap or in a shared-link preview.
+SKIP = {"404.html"}
+
 pages = []
 
 for page in sorted(pathlib.Path(".").glob("*.html")):
+    if page.name in SKIP:
+        continue
     s = page.read_text(encoding="utf-8")
     title = re.search(r"<title>(.*?)</title>", s, re.S).group(1).strip()
     desc = re.search(r'<meta name="description" content="(.*?)">', s, re.S).group(1).strip()
