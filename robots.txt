@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://github-practice-rouge-nine.vercel.app/sitemap.xml

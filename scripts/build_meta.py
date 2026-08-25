@@ -1,21 +1,24 @@
-"""Insert favicon links and OGP/Twitter tags into every page's <head>.
+"""Rebuild what depends on the site's public URL: the OGP/Twitter tags and
+favicon links in every page's <head>, plus sitemap.xml and robots.txt.
 
-Run it after editing a page's <title> or description, so the share-link
-preview keeps matching the page:
+Run it after editing a page's <title> or description, or after adding or
+removing a page:
 
-    ORIGIN=https://example.com python3 scripts/build_meta.py
+    python3 scripts/build_meta.py
 
-ORIGIN is the site's public origin. og:image and og:url need absolute URLs —
-some crawlers will not resolve a relative one — so pass it whenever it is
-known. Without it those two tags stay relative and the rest is unaffected.
-The icon links are always relative: they are same-origin either way, and a
-relative path survives the site moving to another domain.
+The origin below is where the site is served. Moving to another domain is a
+one-line edit here followed by one run; ORIGIN= in the environment overrides
+it for a one-off. og:image, og:url and the sitemap need absolute URLs, since
+not every crawler resolves a relative one. The icon links stay relative:
+they are same-origin either way, and a relative path survives the move.
 """
 import os
 import pathlib
 import re
 
-ORIGIN = os.environ.get("ORIGIN", "").rstrip("/")
+DEFAULT_ORIGIN = "https://github-practice-rouge-nine.vercel.app"
+
+ORIGIN = os.environ.get("ORIGIN", DEFAULT_ORIGIN).rstrip("/")
 BEGIN = "<!-- OGP: shared-link preview. Regenerate with scripts/build_meta.py -->"
 
 
@@ -26,6 +29,8 @@ def absolute(path):
     # The top page is served from the root, so that is its canonical address.
     return ORIGIN + ("/" if path == "index.html" else "/" + path)
 
+
+pages = []
 
 for page in sorted(pathlib.Path(".").glob("*.html")):
     s = page.read_text(encoding="utf-8")
@@ -55,3 +60,25 @@ for page in sorted(pathlib.Path(".").glob("*.html")):
 
     page.write_text(s, encoding="utf-8")
     print("patched", page.name, "->", absolute(page.name))
+    pages.append(page.name)
+
+# Search engines read these two from the site root. The sitemap lists every
+# page so none is missed; robots.txt is where crawlers look for the sitemap.
+# The top page leads, then the rest in the order they were processed.
+pages.sort(key=lambda name: (name != "index.html", name))
+urls = "\n".join(f"  <url><loc>{absolute(name)}</loc></url>" for name in pages)
+pathlib.Path("sitemap.xml").write_text(
+    '<?xml version="1.0" encoding="UTF-8"?>\n'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    f"{urls}\n"
+    "</urlset>\n",
+    encoding="utf-8")
+
+pathlib.Path("robots.txt").write_text(
+    "User-agent: *\n"
+    "Allow: /\n"
+    "\n"
+    f"Sitemap: {ORIGIN}/sitemap.xml\n",
+    encoding="utf-8")
+
+print(f"wrote sitemap.xml ({len(pages)} pages) and robots.txt")
