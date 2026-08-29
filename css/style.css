@@ -437,6 +437,20 @@ img { max-width: 100%; display: block; }
 .footer-nav a:hover,
 .footer-nav a.active { border-bottom-color: var(--pink-mid); }
 
+.footer-legal {
+  margin: 16px 0 0;
+  font-size: 0.85rem;
+}
+
+.footer-legal a {
+  color: var(--pink-mid);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.footer-legal a:hover,
+.footer-legal a.active { border-bottom-color: var(--pink-mid); }
+
 .contact-banner {
   position: absolute;
   right: 4%;
@@ -700,37 +714,6 @@ img { max-width: 100%; display: block; }
 /* ---------- Legal notice (特定商取引法に基づく表記) ---------- */
 
 .legal { max-width: 820px; margin: 0 auto; }
-
-/* Loud on purpose: this page must not go live with blanks in it. */
-.draft-notice {
-  background: #fff6d6;
-  border: 2px solid #e2b93b;
-  border-radius: 12px;
-  padding: 16px 22px;
-  color: #8a6a12;
-  font-size: 0.92rem;
-  line-height: 1.9;
-  margin: 0 0 30px;
-}
-
-.draft-notice code {
-  font-size: 0.9em;
-  background: rgba(0, 0, 0, 0.05);
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-.tbd {
-  display: inline-block;
-  background: #e2b93b;
-  color: var(--white);
-  font-size: 0.78rem;
-  font-weight: 700;
-  border-radius: 999px;
-  padding: 1px 12px;
-  margin-right: 6px;
-  vertical-align: 2px;
-}
 
 .legal-table {
   margin: 0;

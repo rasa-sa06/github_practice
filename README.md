@@ -13,7 +13,7 @@
 | `faq.html` | よくあるご質問 |
 | `contact.html` | お問い合わせ窓口（LINE公式アカウントへの導線） |
 | `404.html` | 存在しないURLを開いたときのページ |
-| `tokushoho.html` | 特定商取引法に基づく表記（**下書き・未公開**） |
+| `tokushoho.html` | 特定商取引法に基づく表記 |
 | `css/style.css` | 全ページ共通のスタイル |
 | `docs/` | 依頼者への確認事項、Instagram 連携の設定手順 |
 | `scripts/` | Instagram 連携と、メタ情報生成のスクリプト |
@@ -22,9 +22,6 @@
 | `sitemap.xml` / `robots.txt` | 検索エンジン向け（`scripts/build_meta.py` が生成） |
 
 `404.html` は検索結果に出す必要がないので、sitemap に載せず `noindex` を付けています。
-`tokushoho.html` も同じ扱いですが、こちらは理由が違い、**空欄が残る下書きだから**です。
-内容が埋まったら `noindex` を外し、`scripts/build_meta.py` の `SKIP` から外し、
-フッターにリンクを追加してください。
 
 ## デザイン
 
