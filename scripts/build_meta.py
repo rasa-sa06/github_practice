@@ -30,10 +30,9 @@ def absolute(path):
     return ORIGIN + ("/" if path == "index.html" else "/" + path)
 
 
-# Left out deliberately. 404.html carries its own noindex head and has no
-# business in a sitemap or a shared-link preview; tokushoho.html is a draft
-# with blanks in it — drop it from SKIP once those are filled in.
-SKIP = {"404.html", "tokushoho.html"}
+# 404.html carries its own noindex head and has no business in a sitemap or
+# a shared-link preview.
+SKIP = {"404.html"}
 
 pages = []
 
