@@ -1,0 +1,29 @@
+{
+  "name": "putieru-admin",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:migrate": "node --experimental-strip-types src/db/migrate.ts",
+    "db:reset": "rm -rf .data",
+    "test": "node --experimental-strip-types --test src/domain/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@neondatabase/serverless": "^1.1.0",
+    "drizzle-orm": "^0.45.2",
+    "next": "^16.3.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^7.0.2"
+  }
+}
