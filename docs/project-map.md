@@ -19,6 +19,7 @@
 | 管理画面のデモ | Artifact「ぷてぃえーるの一日」 | 触れる形の画面デモ。データは架空 |
 | 公開サイト | <https://github-practice-rouge-nine.vercel.app/> | `main` から自動デプロイ |
 | サイトのコード | このリポジトリ | |
+| 管理システムの技術選定案 | [`tech-stack-proposal.md`](tech-stack-proposal.md) | **案。未決定**。何を使うか／作る順番／費用 |
 
 提案書とデモのURLは、アクセス権のある人だけが開けます。
 このリポジトリは公開なので、URLそのものはここに書いていません。
@@ -42,6 +43,8 @@
 
 管理システムの現状・仕様・未決事項は [`admin-system-brief.md`](admin-system-brief.md)
 にまとめています。**実装を始めるときはそちらから読んでください。**
+
+技術選定は [`tech-stack-proposal.md`](tech-stack-proposal.md) に案を出しています（**未決定**）。
 
 ---
 
