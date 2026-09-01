@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { TabBar } from '../../components/TabBar.tsx';
 import { listOrders } from '../../db/queries.ts';
 import { assertNotDeployedWithoutAuth } from '../../lib/guard.ts';
 import { STAGE_LABEL, STAGE_TONE } from '../../domain/stages.ts';
@@ -45,7 +46,12 @@ export default async function OrdersPage() {
             </Link>
           ))}
         </div>
+        {orders.length === 0 ? (
+          <p className="note">最初のご相談が届いたら、ここに出ます。</p>
+        ) : null}
       </main>
+
+      <TabBar current="/orders" />
     </div>
   );
 }

@@ -102,6 +102,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   gap: 20px;
+  flex: 1;
 }
 
 .greet h2 { font-size: var(--step-2); font-weight: 700; line-height: 1.5; }
@@ -265,3 +266,144 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* ---------- まずはこれから（きょう） ---------- */
+
+.primary {
+  background: var(--accent-wash);
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.primary .label {
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--accent-deep);
+  letter-spacing: .06em;
+}
+
+.primary h3 { font-size: var(--step-1); font-weight: 700; line-height: 1.6; }
+.primary .detail { margin: 0; color: var(--ink-soft); font-size: var(--step--1); line-height: 1.8; }
+
+/* 何もない日。落ち着いた色にして、押すものを置きません。 */
+.primary.calm {
+  background: var(--surface-sub);
+  border-color: var(--line);
+}
+.primary.calm .label { color: var(--ink-faint); }
+
+.quiet-head {
+  font-size: var(--step--1);
+  color: var(--ink-faint);
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+/* ---------- クエスト ---------- */
+
+.quest { display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0; padding: 0; }
+
+.quest li { display: flex; align-items: center; gap: 10px; font-size: var(--step-0); }
+
+.quest .tick {
+  width: 20px; height: 20px;
+  flex: none;
+  border-radius: 7px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+  font-size: .7rem;
+  line-height: 1;
+}
+
+.quest li.got .tick { background: var(--green); color: #fff; border-color: var(--green); }
+.quest li.got { color: var(--ink-soft); }
+
+/* ---------- きろく ---------- */
+
+.tally { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+
+.tally div {
+  background: var(--surface-sub);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 15px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tally b {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.tally span { font-size: var(--step--1); color: var(--ink-soft); }
+
+/*
+ * まだ何も記録が無いあいだは、数字を目立たせません。
+ * 始めた初日に大きなゼロが4つ並ぶのは、責めてはいなくても、こたえます。
+ */
+.tally.fresh b { color: var(--ink-faint); }
+
+.badges { display: flex; flex-wrap: wrap; gap: 9px; }
+
+.badge {
+  border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+  background: var(--accent-wash);
+  color: var(--accent-deep);
+  border-radius: 999px;
+  padding: 6px 13px;
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+.badge.locked {
+  background: var(--surface-sub);
+  border-color: var(--line);
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+/* ---------- タブ ---------- */
+
+.tabbar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+}
+
+.tabbar a {
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--ink-faint);
+  padding: 11px 4px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: color .16s ease;
+}
+
+.tabbar .dot {
+  width: 20px; height: 20px;
+  border-radius: 7px;
+  background: var(--ground-deep);
+  transition: background .16s ease;
+}
+
+.tabbar a[aria-current="true"] { color: var(--accent); }
+.tabbar a[aria-current="true"] .dot { background: var(--accent); }

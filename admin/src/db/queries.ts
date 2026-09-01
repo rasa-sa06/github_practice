@@ -1,6 +1,7 @@
 import { asc, eq } from 'drizzle-orm';
 
 import { compareForList, deriveOrder, type DerivedOrder } from '../domain/orders.ts';
+import type { EventType } from '../domain/stages.ts';
 import { db } from './index.ts';
 import { orderEvents } from './schema.ts';
 
@@ -9,9 +10,12 @@ export type OrderCard = {
   title: string;
   detail: string | null;
   brief: string | null;
+  totalPieces: number;
   customerName: string;
   lineChatUrl: string | null;
   derived: DerivedOrder;
+  /** ①きょう と ④きろく は、この記録を数え直して作ります。 */
+  events: { type: EventType; occurredAt: Date }[];
 };
 
 const toCard = (row: {
@@ -27,12 +31,11 @@ const toCard = (row: {
   title: row.title,
   detail: row.detail,
   brief: row.brief,
+  totalPieces: row.totalPieces,
   customerName: row.customer.name,
   lineChatUrl: row.customer.lineChatUrl,
-  derived: deriveOrder(
-    { totalPieces: row.totalPieces },
-    row.events as { type: never; occurredAt: Date }[],
-  ),
+  derived: deriveOrder({ totalPieces: row.totalPieces }, row.events as { type: EventType; occurredAt: Date }[]),
+  events: row.events as { type: EventType; occurredAt: Date }[],
 });
 
 export async function listOrders(): Promise<OrderCard[]> {

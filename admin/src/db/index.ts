@@ -40,7 +40,9 @@ async function connect() {
   const client = drizzlePglite(new PGlite(DEV_DATA_DIR), { schema });
   const { migrate } = await import('drizzle-orm/pglite/migrator');
   await migrate(client, { migrationsFolder: MIGRATIONS });
-  await seedIfEmpty(client);
+  // 始めたばかりの状態（注文が1件も無い画面）を確かめたいときは PUTIERU_SEED=off。
+  // 何もない日にこそ、この画面はいちばん多く開かれます。
+  if (process.env.PUTIERU_SEED !== 'off') await seedIfEmpty(client);
   return client;
 }
 
