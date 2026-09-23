@@ -4,8 +4,8 @@
 Pulls the newest image posts, resizes and re-encodes them the same way the
 rest of the site's photos were prepared, and writes them over
 images/ig-image{1,2,3}.webp. The pages keep pointing at those fixed names, so
-nothing in the HTML has to change except the alt text, which is rewritten from
-each post's caption.
+nothing in the HTML has to change except the alt text, which names what the
+photo is and when it was posted.
 
 Reads INSTAGRAM_TOKEN from the environment. Exits 0 without touching anything
 when the token is absent, so the workflow is harmless before it is configured.
@@ -18,6 +18,7 @@ import json
 import os
 import re
 import sys
+from datetime import datetime
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -92,24 +93,27 @@ def write_webp(image: Image.Image, destination: Path) -> int:
     return destination.stat().st_size
 
 
-def alt_from_caption(caption: str | None, index: int) -> str:
-    """First line of the caption that says something once hashtags are removed.
+def alt_from_post(post: dict) -> str:
+    """What the photo is, and when it was posted.
 
-    Captions often open with a run of hashtags, so the first line is not
-    necessarily the descriptive one.
+    The caption used to be used for this, on the assumption that it describes
+    the item. It usually does not — a post opens with a greeting, a date, or a
+    single emoji, and "🎄" tells a screen reader nothing about a hair ribbon
+    and keeps the photo out of image search. Nothing here can see what is in
+    the picture, so the alt text says only what is certainly true: these are
+    the shop's ribbons, and this is when this one went up.
     """
-    fallback = f"ぷてぃえーるのヘアリボン {index}"
-    if not caption:
-        return fallback
-    for line in caption.splitlines():
-        text = re.sub(r"#\S+", "", line).strip(" 　-–—|/")
-        if text:
-            return text[:70]
-    return fallback
+    base = "ぷてぃえーるのヘアリボン作品"
+    stamp = (post.get("timestamp") or "")[:10]
+    try:
+        posted = datetime.strptime(stamp, "%Y-%m-%d")
+    except ValueError:
+        return base
+    return f"{base}（{posted.year}年{posted.month}月{posted.day}日の投稿）"
 
 
 def update_alt_text(alts: list[str]) -> list[Path]:
-    """Point each gallery <img>'s alt at the caption of the post now behind it."""
+    """Describe each gallery <img> as the post now behind it."""
     changed = []
     for page in PAGES:
         original = page.read_text(encoding="utf-8")
@@ -138,9 +142,11 @@ def main() -> None:
     for index, post in enumerate(posts, start=1):
         destination = IMAGES / f"ig-image{index}.webp"
         size = write_webp(download(post["media_url"]), destination)
-        alt = alt_from_caption(post.get("caption"), index)
+        alt = alt_from_post(post)
         alts.append(alt)
-        print(f"{destination.name}: {size // 1024} KB  {post.get('timestamp', '')}  {alt[:40]}")
+        # The caption is only here so the log says which post this was.
+        caption = " ".join((post.get("caption") or "").split())[:40]
+        print(f"{destination.name}: {size // 1024} KB  {post.get('timestamp', '')}  {caption}")
 
     for page in update_alt_text(alts):
         print(f"alt text updated in {page.name}")
