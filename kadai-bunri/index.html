@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 個人の練習アプリなので、検索結果には出さない -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f6f1ea">
+<title>わたしの荷物、あなたの荷物｜課題の分離トレーニング</title>
+<meta name="description" content="人の不機嫌を自分のせいにしてしまう人のための「課題の分離」練習アプリ。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <button class="brand" type="button" data-go="home">わたしの荷物、あなたの荷物</button>
+  <button class="sos-btn" type="button" data-go="sos">しんどい時</button>
+</header>
+
+<main id="app">
+
+  <!-- ===== ホーム ===== -->
+  <section class="screen" data-screen="home">
+    <div class="charm">
+      <p class="charm-label">きょうのお守りことば</p>
+      <p class="charm-text" id="charm-text"></p>
+      <button class="link-btn" type="button" id="charm-next">ほかのことば</button>
+    </div>
+
+    <div class="menu">
+      <button class="menu-card primary" type="button" data-go="work">
+        <span class="menu-title">いまのモヤモヤを整理する</span>
+        <span class="menu-sub">起きたことを「誰の荷物か」に仕分けます（5〜10分）</span>
+      </button>
+      <button class="menu-card" type="button" data-go="quiz">
+        <span class="menu-title">練習問題</span>
+        <span class="menu-sub">よくある場面で、見分ける練習をします</span>
+      </button>
+      <button class="menu-card" type="button" data-go="learn">
+        <span class="menu-title">課題の分離ってなに？</span>
+        <span class="menu-sub">考え方と、よくある誤解</span>
+      </button>
+      <button class="menu-card" type="button" data-go="log">
+        <span class="menu-title">これまでの記録</span>
+        <span class="menu-sub" id="log-count">まだ記録はありません</span>
+      </button>
+    </div>
+
+    <p class="note">記録はこの端末の中だけに保存され、どこにも送信されません。<br>
+    このアプリは医療・カウンセリングの代わりではありません。</p>
+  </section>
+
+  <!-- ===== 整理ワーク ===== -->
+  <section class="screen" data-screen="work">
+    <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+    <p class="step-label" id="step-label"></p>
+
+    <!-- 1. 不安度 -->
+    <div class="step" data-step="1">
+      <h2>いま、どのくらい不安・しんどいですか？</h2>
+      <p class="hint">正確じゃなくて大丈夫。なんとなくの数字で。</p>
+      <div class="meter">
+        <input type="range" min="0" max="10" value="5" id="before">
+        <output id="before-out">5</output>
+      </div>
+      <div class="meter-scale"><span>0 落ち着いてる</span><span>10 とてもつらい</span></div>
+      <p class="alert" id="high-alert" hidden>
+        かなりしんどい状態ですね。考えるのは後でも大丈夫です。
+        先に <button class="link-btn" type="button" data-go="sos">呼吸でひと休み</button> してからでもいいですよ。
+      </p>
+    </div>
+
+    <!-- 2. 場面と事実 -->
+    <div class="step" data-step="2">
+      <h2>誰との間で、何がありましたか？</h2>
+      <div class="chips" id="scene-chips"></div>
+      <label class="field">
+        <span>起きたこと（事実だけ）</span>
+        <textarea id="fact" rows="3" placeholder="例：夫が帰ってきて、ため息をついて無言で部屋に入った"></textarea>
+      </label>
+      <p class="hint">「怒っていた」「私のせいで」などの<strong>解釈</strong>は次で書きます。
+      ここは、ビデオカメラに映ることだけを書いてみてください。事実と解釈を分けるだけで、少し距離がとれます。</p>
+    </div>
+
+    <!-- 3. 浮かんだ考え -->
+    <div class="step" data-step="3">
+      <h2>そのとき、頭に浮かんだことは？</h2>
+      <p class="hint">当てはまるものをいくつでも。浮かんでしまうのは、あなたが悪いからではなく、そうやって身を守ってきたからです。</p>
+      <div class="chips multi" id="thought-chips"></div>
+      <label class="field">
+        <span>ほかに浮かんだこと（任意）</span>
+        <textarea id="thought-free" rows="2"></textarea>
+      </label>
+    </div>
+
+    <!-- 4. 仕分け -->
+    <div class="step" data-step="4">
+      <h2>それぞれ、誰の荷物？</h2>
+      <div class="key-q">
+        <p>見分けるための質問</p>
+        <strong>「その結果を最終的に引き受けるのは誰？」</strong>
+        <span>もし放っておいたら、困るのは誰でしょう。</span>
+      </div>
+      <div id="sort-list" class="sort-list"></div>
+      <form class="add-item" id="add-item">
+        <input type="text" id="add-item-text" placeholder="自分で項目を足す（例：夫が夕飯を食べるか）" maxlength="60">
+        <button type="submit">追加</button>
+      </form>
+    </div>
+
+    <!-- 5. 手放す・できること -->
+    <div class="step" data-step="5">
+      <h2>荷物を持ち主に返しましょう</h2>
+      <div id="release-list"></div>
+      <h3>あなたの荷物の中で、いまできる小さなこと</h3>
+      <p class="hint">大きな解決じゃなくて大丈夫。「深呼吸する」「お茶をいれる」「その場を5分離れる」も立派な一歩です。</p>
+      <div class="chips" id="action-chips"></div>
+      <label class="field">
+        <span>やってみること</span>
+        <input type="text" id="action" maxlength="80" placeholder="例：5分だけベランダに出て、自分のお茶を飲む">
+      </label>
+      <div class="joint-tip" id="joint-tip" hidden>
+        <strong>「共同の荷物」にしたものがあるとき</strong>
+        <p>共同の課題は、話し合って「一緒にやろう」と合意してはじめて共同になります。
+        勝手に背負うのではなく、「何か手伝えることある？」「こうしてもらえると助かる」と<strong>言葉で</strong>確かめてみましょう。</p>
+      </div>
+    </div>
+
+    <!-- 6. 振り返り -->
+    <div class="step" data-step="6">
+      <h2>いま、どのくらい不安・しんどいですか？</h2>
+      <div class="meter">
+        <input type="range" min="0" max="10" value="5" id="after">
+        <output id="after-out">5</output>
+      </div>
+      <div class="meter-scale"><span>0 落ち着いてる</span><span>10 とてもつらい</span></div>
+      <p class="hint">数字が変わらなくても失敗ではありません。整理しようとしたこと自体が、練習です。</p>
+    </div>
+
+    <div class="step" data-step="7">
+      <div class="done">
+        <h2>おつかれさまでした</h2>
+        <p id="done-msg"></p>
+        <div class="summary" id="summary"></div>
+        <button class="btn primary" type="button" data-go="home">ホームへ</button>
+      </div>
+    </div>
+
+    <div class="nav-row" id="work-nav">
+      <button class="btn" type="button" id="prev">もどる</button>
+      <button class="btn primary" type="button" id="next">つぎへ</button>
+    </div>
+  </section>
+
+  <!-- ===== 練習問題 ===== -->
+  <section class="screen" data-screen="quiz">
+    <p class="step-label" id="quiz-label"></p>
+    <div class="quiz-card">
+      <p class="quiz-scene" id="quiz-scene"></p>
+      <p class="quiz-q" id="quiz-q"></p>
+    </div>
+    <div class="owner-btns" id="quiz-btns"></div>
+    <div class="quiz-feedback" id="quiz-feedback" hidden></div>
+    <div class="nav-row">
+      <button class="btn" type="button" data-go="home">やめる</button>
+      <button class="btn primary" type="button" id="quiz-next" hidden>つぎの問題</button>
+    </div>
+  </section>
+
+  <!-- ===== 学ぶ ===== -->
+  <section class="screen" data-screen="learn">
+    <article class="learn">
+      <h2>課題の分離ってなに？</h2>
+      <p>アドラー心理学の考え方のひとつです。目の前の問題を<strong>「これは誰の課題（荷物）か？」</strong>で分けて、
+      自分の荷物は自分で持ち、他人の荷物には勝手に手を出さない、というものです。</p>
+
+      <h3>見分け方はひとつだけ</h3>
+      <p class="big-q">「その選択の結果を、最終的に引き受けるのは誰？」</p>
+      <ul>
+        <li>上司が不機嫌でいる → 不機嫌の結果を引き受けるのは上司。<strong>上司の課題</strong></li>
+        <li>その不機嫌を見て、私がどう受け止め、どう振る舞うか → <strong>私の課題</strong></li>
+        <li>子どもが宿題をやるか → 困るのは子ども。<strong>子どもの課題</strong></li>
+        <li>宿題をやらない子にイライラする気持ちをどう扱うか → <strong>私の課題</strong></li>
+      </ul>
+
+      <h3>なぜ、人の不機嫌を自分のことにしてしまうの？</h3>
+      <p>機嫌の悪い大人の顔色をうかがって育った人（アダルトチルドレン）や、
+      人の感情を敏感に受け取る人（HSP）は、「相手の機嫌を直すのは自分の役目」と身体が覚えていることがあります。
+      子どもの頃は、それが<strong>自分を守るための大切な方法</strong>でした。だから、すぐにやめられなくて当然です。</p>
+      <p>でも大人になった今、相手の機嫌は相手が自分で扱うものです。
+      他人の荷物まで背負い続けると、自分の余裕がなくなり、いちばん大切にしたい人（たとえば子ども）にキツく当たってしまうこともあります。
+      <strong>余裕がないのは、あなたがダメだからではなく、荷物を持ちすぎているサイン</strong>かもしれません。</p>
+
+      <h3>よくある誤解</h3>
+      <dl class="faq">
+        <dt>「相手の課題だから知らない」と突き放すこと？</dt>
+        <dd>いいえ。分けたうえで「何か手伝えることある？」と声をかけたり、見守ったりはできます。
+        しないのは、<strong>頼まれていないのに相手の荷物を取り上げること</strong>です。</dd>
+        <dt>子育てで、子どもを放っておくこと？</dt>
+        <dd>いいえ。命や安全に関わること、まだ自分では判断できないことは、親が守ります。
+        そのうえで、子どもが自分で選べることは任せて、困ったら相談できる関係をつくる。それが課題の分離です。</dd>
+        <dt>暴言や暴力も「相手の課題」だから我慢するの？</dt>
+        <dd><strong>いいえ、絶対に違います。</strong>相手が怒るのは相手の課題ですが、
+        <strong>自分の安全を守ることは、あなたの大切な課題</strong>です。離れる・助けを求めることを選んでください。</dd>
+        <dt>すぐにできるようになる？</dt>
+        <dd>長年の習慣なので、何度も「あ、また背負ってた」と気づくところから始まります。
+        気づけた回数が、そのまま練習の成果です。</dd>
+      </dl>
+
+      <h3>共同の課題</h3>
+      <p>家事の分担や子どもの進路など、関わる人みんなに影響することもあります。
+      その場合も、はじめは誰かの課題です。<strong>話し合って「一緒に取り組もう」と合意したとき</strong>に、共同の課題になります。</p>
+
+      <button class="btn primary" type="button" data-go="work">さっそく整理してみる</button>
+    </article>
+  </section>
+
+  <!-- ===== 記録 ===== -->
+  <section class="screen" data-screen="log">
+    <h2>これまでの記録</h2>
+    <div id="log-list"></div>
+    <button class="btn danger" type="button" id="clear-log" hidden>記録をすべて消す</button>
+  </section>
+
+  <!-- ===== しんどい時 ===== -->
+  <section class="screen" data-screen="sos">
+    <h2>まず、からだを落ち着けましょう</h2>
+    <p class="hint">不安が強いときは、考えるより先に身体をゆるめるほうが効きます。</p>
+
+    <div class="breath">
+      <div class="breath-circle" id="breath-circle"><span id="breath-text">はじめる</span></div>
+      <button class="btn primary" type="button" id="breath-toggle">呼吸をはじめる</button>
+      <p class="hint">4秒吸って、2秒止めて、6秒かけてゆっくり吐きます。吐く息を長くするのがコツです。</p>
+    </div>
+
+    <div class="box">
+      <h3>5・4・3・2・1 で「いま、ここ」に戻る</h3>
+      <ol class="grounding">
+        <li>見えるものを <strong>5つ</strong></li>
+        <li>触れているものを <strong>4つ</strong>（床の足、服の感触…）</li>
+        <li>聞こえる音を <strong>3つ</strong></li>
+        <li>におい を <strong>2つ</strong></li>
+        <li>味 を <strong>1つ</strong>（お茶や水を一口）</li>
+      </ol>
+    </div>
+
+    <div class="box">
+      <h3>心の中で言ってみることば</h3>
+      <ul class="phrases">
+        <li>「あの人の機嫌は、あの人のもの」</li>
+        <li>「私のせいとは限らない」</li>
+        <li>「いま、私は安全」</li>
+        <li>「子どもに怒りすぎたら、あとで謝ればやり直せる」</li>
+      </ul>
+    </div>
+
+    <div class="box danger-box">
+      <h3>ひとりで抱えないで</h3>
+      <p>暴力や暴言がある、子どもに手をあげてしまいそう、消えてしまいたい気持ちがある——そんなときは、すぐに相談してください。</p>
+      <ul class="hotline">
+        <li><strong>緊急のとき</strong>　110 / 119</li>
+        <li><strong>子育てがつらい・虐待かもと思ったら</strong>（児童相談所）　189</li>
+        <li><strong>DV相談ナビ</strong>　#8008</li>
+        <li><strong>こころの健康相談統一ダイヤル</strong>　0570-064-556</li>
+        <li><strong>よりそいホットライン</strong>（24時間）　0120-279-338</li>
+      </ul>
+      <p class="note">番号は変わることがあります。最新の情報は各窓口の公式サイトで確認してください。</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

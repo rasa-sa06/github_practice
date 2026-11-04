@@ -128,3 +128,11 @@
 ## 依頼者への確認事項
 
 回答待ちの項目と、回答済みの内容は `content-todo.md` にまとめています。
+
+---
+
+## 別プロジェクト：課題の分離トレーニング
+
+ぷてぃえーるとは無関係の、個人の練習用アプリです。`kadai-bunri/` に分けて置いています。
+ルート直下の `*.html` ではないので、`build_meta.py` の sitemap・OGP 生成の対象外です。
+説明は [`kadai-bunri/README.md`](../kadai-bunri/README.md)。
